@@ -1,8 +1,6 @@
 // Represents an order made by a user in the bookstore.
 class Order {
   // Create a new Order instance.
-  // @param {User} user - The user who made the order.
-  // @param {Book[]} books - The array of books included in the order.
   constructor(user, books) {
     this.user = user;
     this.books = books;
@@ -10,17 +8,21 @@ class Order {
   }
 
   // Calculate the total price of the order.
-  // If a book is not available, its price will not be included in the total.
-  // @returns {number} The total price of the order.
+  // Only include the price of books that are available.
+  // Returns {number} The total price of the order.
   calculateTotalPrice() {
     return this.books.reduce((total, book) => {
-      if (book.availability) {
-        return total + book.price;
-      } else {
-        console.log(`Book "${book.title}" is not available.`);
-        return total;
-      }
+      return book.availability ? total + book.price : total;
     }, 0);
+  }
+
+  // Define how to serialize the Order instance to JSON
+  toJSON() {
+    return {
+      user: this.user,
+      books: this.books,
+      totalPrice: this.totalPrice // Adding totalPrice to the output
+    };
   }
 }
 
