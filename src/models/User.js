@@ -1,13 +1,36 @@
 // Represents a user of the bookstore.
 class User {
+  #name;
+  #email;
+  #userId;
+
   // Create a new User instance.
-  // @param {string} name - The name of the user.
-  // @param {string} email - The email of the user.
-  // @param {number} userId - The unique ID of the user.
   constructor(name, email, userId) {
-    this.name = name;
-    this.email = email;
-    this.userId = userId;
+    this.#name = name;
+    this.#email = email;
+    this.#userId = userId;
+  }
+
+  // Getters for private properties
+  get name() {
+    return this.#name;
+  }
+
+  get email() {
+    return this.#email;
+  }
+
+  get userId() {
+    return this.#userId;
+  }
+
+  // Define how to serialize the User instance to JSON
+  toJSON() {
+    return {
+      name: this.#name,
+      email: this.#email,
+      userId: this.#userId
+    };
   }
 }
 
